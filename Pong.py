@@ -105,7 +105,7 @@ while running:
     pygame.draw.rect(screen, WHITE, 
                      (SCREEN_WIDTH - PADDLE_WIDTH, player2_y,
                        PADDLE_WIDTH, PADDLE_HEIGHT))
-    pygame.draw.ellipse(screen, YELLOW, 
+    pygame.draw.ellipse(screen, RED, 
                         (ball_x, ball_y, 
                         BALL_WIDTH, BALL_HEIGHT))
 
