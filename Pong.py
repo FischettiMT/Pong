@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 # Initialize PyGame
 pygame.init()
@@ -22,7 +23,7 @@ PADDLE_SPEED = 5
 
 # Ball settings
 BALL_WIDTH, BALL_HEIGHT = 45, 45
-BALL_SPEED_X, BALL_SPEED_Y = 4, 4
+BALL_SPEED_X, BALL_SPEED_Y = 4, 8
 score = 0
 score_x_position = (SCREEN_WIDTH/2)-50
 score_y_position = 10
@@ -71,27 +72,20 @@ while running:
 
     # Ball collision with top and bottom walls
     if ball_y <= 0 or ball_y >= SCREEN_HEIGHT - BALL_HEIGHT:
-        ball_dy = -ball_dy
+        ball_dy = -ball_dy 
+
 
     # Ball collision with paddles
+    current_direction = ball_dx
     if ((ball_x <= PADDLE_WIDTH) and
-         (player1_y <= ball_y <= player1_y + PADDLE_HEIGHT)) or \
-       ((ball_x >= SCREEN_WIDTH - PADDLE_WIDTH - BALL_WIDTH) and
+         (player1_y <= ball_y <= player1_y + PADDLE_HEIGHT)):
+        ball_dx = -ball_dx 
+
+    if ((ball_x >= SCREEN_WIDTH - PADDLE_WIDTH - BALL_WIDTH) and
          (player2_y <= ball_y <= player2_y + PADDLE_HEIGHT)):
         ball_dx = -ball_dx
-
-    # # Ball collision with paddles
-    # current_direction = ball_dx
-    # if ((ball_x <= PADDLE_WIDTH) and
-    #      (player1_y <= ball_y <= player1_y + PADDLE_HEIGHT)):
-    #     ball_dx = -ball_dx
-
-    # if ((ball_x >= SCREEN_WIDTH - PADDLE_WIDTH - BALL_WIDTH) and
-    #      (player2_y <= ball_y <= player2_y + PADDLE_HEIGHT)):
-    #     ball_dx = -ball_dx
-    #     score += 1
-    #     score_text = my_font.render(f"Score: {score}",True,WHITE)
-    #     screen.blit(score_text,(score_x_position,score_y_position))
+        ball_dy = ball_dy + random.randint(-4, 4)
+        score += 1
 
     # Ball out of bounds
     if ((ball_x < 0) or (ball_x > SCREEN_WIDTH)):
@@ -110,8 +104,7 @@ while running:
                         BALL_WIDTH, BALL_HEIGHT))
 
     # Update score on screen
-    score = score+1
-    score_text = my_font.render(f"Score: {score}",True,WHITE)
+    score_text = my_font.render(f"Score: {ball_dy}",True,WHITE)
     screen.blit(score_text,(score_x_position,score_y_position))
 
     # Update display
