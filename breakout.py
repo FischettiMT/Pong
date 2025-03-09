@@ -52,3 +52,36 @@ while running == True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and paddle.left>0:
+        paddle.move_ip(-paddle_speed, 0)
+    if keys[pygame.K_RIGHT] and paddle.right<WIDTH:
+        paddle.move_ip(paddle_speed, 0)
+
+    # Move ball
+    ball.x += ball_speed_x
+    ball.y += ball_speed_y
+
+    # Move Paddle
+    # paddle.x=ball.x
+    
+
+
+
+
+
+    # draw paddle
+    pygame.draw.rect(screen, BLUE, paddle)
+
+    # draw ball
+    pygame.draw.ellipse(screen, RED, ball)
+
+
+
+
+# flip invisible screen to visible screen & set frames per second
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
